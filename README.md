@@ -11,7 +11,7 @@ Run `land-center` first. It should run on `127.0.0.1:7901` by default.
 ```bash
 # SET API_URL from land-center
 export API_URL=http://127.0.0.1:7901
-npm run start-self-host
+npm run start
 ```
 
 Visit `http://localhost:8080` in your browser.
@@ -23,10 +23,24 @@ Visit `http://localhost:8080` in your browser.
 ```bash
 export API_URL=http://127.0.0.1:7901
 export CLERK_KEY=pk_test_xxxx
-npm run start
+npm run start-clerk
 ```
 
 *Project provides a test personal key for development. It will clean all data when I'm developing. Do test with your own key.*
+
+## Build for Production
+
+Prepare your `API_URL` and `CLERK_KEY` (if need) in environment variables. Make sure `land-center` is running in your `API_URL`.
+
+```bash
+export API_URL=https://your-center-api-url
+npm run build
+
+# if you want to use ClerkJs
+export API_URL=https://your-center-api-url
+export CLERK_KEY=pk_live_xxxx
+npm run build-clerk
+```
 
 ## Docker
 
