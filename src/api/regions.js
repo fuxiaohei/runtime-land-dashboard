@@ -2,7 +2,17 @@ import { clientGet, clientPost } from "./client";
 
 // listRegions returns a list of regions.
 async function listRegions() {
-    return await clientGet("/v1/regions");
+    return await clientGet("/v1/settings/regions");
+}
+
+// listRegionTokens returns a list of region tokens.
+async function listRegionTokens() {
+    return await clientGet("/v1/settings/region_tokens")
+}
+
+// createRegionToken creates a region token.
+async function createRegionToken(req) {
+    return await clientPost("/v1/settings/region_tokens", req)
 }
 
 // listDomainSettings returns domain settings.
@@ -31,5 +41,5 @@ async function getStats() {
 }
 
 export {
-    getStats, listDomainSettings, listRegions, listStorageSettings, updateDomainSettings, updateStorageSettings
+    getStats, createRegionToken, listRegionTokens, listDomainSettings, listRegions, listStorageSettings, updateDomainSettings, updateStorageSettings
 };

@@ -1,4 +1,4 @@
-import { Container, Nav, NavDropdown, Navbar } from "react-bootstrap";
+import { Badge, Container, Nav, NavDropdown, Navbar } from "react-bootstrap";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { buildDate, version } from "../config";
@@ -44,6 +44,11 @@ function MainLayout({ title, children }) {
               >
                 Runtime.land
               </Link>
+              <sup>
+                <Badge bg="primary" className="ms-3">
+                  alpha
+                </Badge>
+              </sup>
             </Navbar.Brand>
             <Nav>
               <NavbarLink to="/projects" active>

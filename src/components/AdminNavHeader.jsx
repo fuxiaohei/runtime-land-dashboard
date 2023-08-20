@@ -15,6 +15,11 @@ function AdminNavHeader({ activeKey }) {
         </NavbarLink>
       </Nav.Item>
       <Nav.Item>
+        <NavbarLink className="me-3" eventKey="tokens" to="/admin/tokens">
+          Tokens
+        </NavbarLink>
+      </Nav.Item>
+      <Nav.Item>
         <NavbarLink className="me-3" eventKey="domains" to="/admin/domains">
           Domains
         </NavbarLink>

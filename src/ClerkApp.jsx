@@ -16,6 +16,7 @@ import AdminDomainsPage from "./pages/admin/Domains";
 import AdminRegionsPage from "./pages/admin/Regions";
 import AdminStatsPage from "./pages/admin/Stats";
 import AdminStoragePage from "./pages/admin/Storage";
+import AdminTokensPage from "./pages/admin/Tokens";
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
         <Route path="/admin/regions" element={<AdminRegionsPage />} />
         <Route path="/admin/domains" element={<AdminDomainsPage />} />
         <Route path="/admin/storage" element={<AdminStoragePage />} />
+        <Route path="/admin/tokens" element={<AdminTokensPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
