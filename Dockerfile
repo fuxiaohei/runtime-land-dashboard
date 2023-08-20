@@ -10,7 +10,7 @@ ENV CLERK_KEY=$DASH_CLERK_KEY
 ADD . .
 
 RUN npm install
-RUN npm run build
+RUN npm run build-clerk
 
 FROM nginx:1.25
 EXPOSE 80
