@@ -13,7 +13,7 @@ import {
   removeLocalInfo,
 } from "../api/client";
 import { createOauthToken, verifyToken } from "../api/token";
-import { selfHost } from "../config";
+import { isClerkJs } from "../config";
 import ErrorPage from "../pages/Error";
 import LoadingPage from "../pages/Loading";
 
@@ -47,9 +47,9 @@ async function verifyLocalToken() {
 }
 
 function AuthProvider({ children }) {
-  return selfHost
-    ? SelfHostAuthProvider({ children })
-    : ClerkAuthProvider({ children });
+  return isClerkJs
+    ? ClerkAuthProvider({ children })
+    : SelfHostAuthProvider({ children });
 }
 
 function SelfHostAuthProvider({ children }) {
@@ -59,6 +59,7 @@ function SelfHostAuthProvider({ children }) {
       return await verifyLocalToken();
     },
     retry: false,
+    cacheTime: 0,
   });
 
   if (isLoading) {

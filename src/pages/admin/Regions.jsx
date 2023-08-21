@@ -46,7 +46,7 @@ function AdminRegionsPage() {
           <ListGroup className="lh-lg" variant="flush">
             <QueryWrapper isLoading={isLoading} isError={isError} error={error}>
               {(regions || []).length == 0 ? (
-                <ListGroup.Item>No regions found.</ListGroup.Item>
+                <ListGroup.Item>No Regions found.</ListGroup.Item>
               ) : null}
               {(regions || []).map((region) => renderRow(region))}
             </QueryWrapper>

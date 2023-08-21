@@ -29,6 +29,11 @@ function AdminNavHeader({ activeKey }) {
           Storage
         </NavbarLink>
       </Nav.Item>
+      <Nav.Item>
+        <NavbarLink className="me-3" eventKey="email" to="/admin/email">
+          Email
+        </NavbarLink>
+      </Nav.Item>
     </Nav>
   );
 }

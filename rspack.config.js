@@ -2,22 +2,22 @@
  * @type {import('@rspack/cli').Configuration}
  */
 
-let api_url = (process.env.NODE_ENV === 'development') ? "http://api-dev.127-0-0-1.nip.io" : "https://center-api.runtime.land";
+let apiUrl = (process.env.NODE_ENV === 'development') ? "http://api-dev.127-0-0-1.nip.io" : "https://center-api.runtime.land";
 if (process.env.API_URL) {
-  api_url = process.env.API_URL;
+  apiUrl = process.env.API_URL;
 }
 
-let clerk_key = (process.env.NODE_ENV === 'development') ? "pk_test_cGV0LW1vb3NlLTc1LmNsZXJrLmFjY291bnRzLmRldiQ" : "pk_live_Y2xlcmsucnVudGltZS5sYW5kJA";
-if (process.env.CLERK_KEY) {
-  clerk_key = process.env.CLERK_KEY;
-}
-let selfHost = !!process.env.SELF_HOST;
-if (selfHost) {
-  clerk_key = "";
+let clerkKey = "";
+let useClerkJS = !!process.env.CLERK_JS;
+if (useClerkJS) {
+  clerkKey = (process.env.NODE_ENV === 'development') ? "pk_test_cGV0LW1vb3NlLTc1LmNsZXJrLmFjY291bnRzLmRldiQ" : "pk_live_Y2xlcmsucnVudGltZS5sYW5kJA";
+  if (process.env.CLERK_KEY) {
+    clerkKey = process.env.CLERK_KEY;
+  }
 }
 
-console.log("API_URL:", api_url);
-console.log("CLERK_KEY:", clerk_key)
+console.log("API_URL:", apiUrl);
+console.log("CLERK_KEY:", clerkKey)
 
 module.exports = {
   context: __dirname,
@@ -45,8 +45,8 @@ module.exports = {
       ],
     },
     define: {
-      API_URL: "'" + api_url + "'",
-      CLERK_KEY: "'" + clerk_key + "'",
+      API_URL: "'" + apiUrl + "'",
+      CLERK_KEY: "'" + clerkKey + "'",
     },
   },
   module: {

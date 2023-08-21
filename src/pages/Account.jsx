@@ -1,11 +1,12 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { Button, Container } from "react-bootstrap";
+import { Alert, Button, Container } from "react-bootstrap";
 import { createDeploymentToken, listDeploymentTokens } from "../api/token";
+import PasswordFormModal from "../components/PasswordFormModal";
 import TokensList from "../components/TokensList";
 import { AuthProvider, useAuthContext } from "../layouts/AuthContext";
 import MainLayout from "../layouts/MainLayout";
-import LoadingPage from "./Loading";
+import QueryWrapper from "../layouts/QueryWrapper";
 
 function AccountCard() {
   const { user } = useAuthContext();
@@ -29,6 +30,39 @@ function AccountCard() {
           <Button variant="outline-success">Free Plan</Button>
         </div>
       </div>
+    </div>
+  );
+}
+
+function DangerZone() {
+  const { user } = useAuthContext();
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
+
+  return (
+    <div className="danger-zone border-top pt-4">
+      <h5 className="fw-bold text-danger">Danger Zone</h5>
+      <div className="mt-4">
+        {user.oauth_provider == "clerk" && (
+          <Alert variant="warning">
+            Your account is managed by Clerk. Please update your password from
+            your Clerk dashboard.
+          </Alert>
+        )}
+        <Button
+          variant="outline-danger"
+          onClick={() => setShowPasswordModal(true)}
+          disabled={user.oauth_provider !== "email"}
+        >
+          Update Password
+        </Button>
+        <Button variant="outline-danger" disabled className="ms-4">
+          Delete Account
+        </Button>
+      </div>
+      <PasswordFormModal
+        show={showPasswordModal}
+        handleClose={() => setShowPasswordModal(false)}
+      />
     </div>
   );
 }
@@ -73,30 +107,22 @@ function AccountPage() {
     queryClient.invalidateQueries({ queryKey: ["tokens"] });
   };
 
-  const renderContainer = () => {
-    const tokenContainer = isLoading ? (
-      <LoadingPage />
-    ) : (
-      <TokensList
-        tokens={tokens}
-        newToken={newToken}
-        handleNewToken={handleNewToken}
-        handleNewTokenDone={handleNewTokenDone}
-        handleRemoveToken={handleRemoveToken}
-      />
-    );
-    return (
-      <Container id="account-container">
-        <AccountCard />
-        {tokenContainer}
-      </Container>
-    );
-  };
-
   return (
     <AuthProvider>
       <MainLayout title="Account | Runtime.land">
-        {renderContainer()}
+        <Container id="account-container">
+          <AccountCard />
+          <QueryWrapper isLoading={isLoading} isError={isError} error={error}>
+            <TokensList
+              tokens={tokens}
+              newToken={newToken}
+              handleNewToken={handleNewToken}
+              handleNewTokenDone={handleNewTokenDone}
+              handleRemoveToken={handleRemoveToken}
+            />
+          </QueryWrapper>
+          <DangerZone />
+        </Container>
       </MainLayout>
     </AuthProvider>
   );

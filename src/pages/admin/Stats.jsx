@@ -19,8 +19,6 @@ function AdminStatsPage() {
     retry: false,
   });
 
-  console.log("---", stats);
-
   return (
     <AuthProvider>
       <MainLayout title="Stats | Admin Panel | Runtime.land">

@@ -19,23 +19,7 @@ function removeLocalInfo() {
 }
 
 function handleTokenResponse(response) {
-    let value = {
-        user: {
-            name: response.nick_name,
-            email: response.email,
-            avatar_url: response.avatar_url,
-            oauth_id: response.oauth_id,
-            role: response.role,
-        },
-        token: {
-            value: response.token_value,
-            uuid: response.token_uuid,
-            expired_at: response.token_expired_at,
-            active_at: response.token_active_at,
-            active_interval: response.token_active_interval,
-        },
-    };
-    setLocalInfo(value);
+    setLocalInfo(response);
 }
 
 function createClient() {
