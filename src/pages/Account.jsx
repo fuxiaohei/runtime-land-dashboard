@@ -7,6 +7,7 @@ import TokensList from "../components/TokensList";
 import { AuthProvider, useAuthContext } from "../layouts/AuthContext";
 import MainLayout from "../layouts/MainLayout";
 import QueryWrapper from "../layouts/QueryWrapper";
+import { updatePassword } from "../api/settings";
 
 function AccountCard() {
   const { user } = useAuthContext();
@@ -38,6 +39,18 @@ function DangerZone() {
   const { user } = useAuthContext();
   const [showPasswordModal, setShowPasswordModal] = useState(false);
 
+  const mutation = useMutation({
+    mutationFn: async (data) => {
+      if (data.new_password !== data.confirm_password) {
+        throw new Error("Confirm password do not match");
+      }
+      return await updatePassword(data);
+    },
+    onSuccess: () => {
+      setShowPasswordModal(false);
+    },
+  });
+
   return (
     <div className="danger-zone border-top pt-4">
       <h5 className="fw-bold text-danger">Danger Zone</h5>
@@ -58,10 +71,18 @@ function DangerZone() {
         <Button variant="outline-danger" disabled className="ms-4">
           Delete Account
         </Button>
+        {mutation.isSuccess && (
+          <Alert variant="success" className="mt-4">Password updated successfully</Alert>
+        )}
       </div>
       <PasswordFormModal
         show={showPasswordModal}
         handleClose={() => setShowPasswordModal(false)}
+        onSubmit={(data) => mutation.mutate(data)}
+        isLoading={mutation.isLoading}
+        isError={mutation.isError}
+        error={mutation.error}
+        isSuccess={mutation.isSuccess}
       />
     </div>
   );

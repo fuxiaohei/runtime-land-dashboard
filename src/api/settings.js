@@ -46,9 +46,14 @@ async function getEmailSettings() {
 }
 
 // updateEmailSettings updates email settings.
-async function updateEmailSettings(data){
+async function updateEmailSettings(data) {
     return clientPost("/v1/settings/email", data)
 }
 
-export { createRegionToken, getEmailSettings, getStats, listDomainSettings, listRegionTokens, listRegions, listStorageSettings, updateDomainSettings, updateEmailSettings, updateStorageSettings };
+async function updatePassword(data) {
+    return await clientPost("/v1/update-password", data);
+}
+
+
+export { createRegionToken, getEmailSettings, getStats, listDomainSettings, listRegionTokens, listRegions, listStorageSettings, updateDomainSettings, updateEmailSettings, updateStorageSettings, updatePassword };
 

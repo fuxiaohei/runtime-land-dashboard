@@ -1,7 +1,14 @@
 import { useState } from "react";
-import { Button, Form, Modal } from "react-bootstrap";
+import { Alert, Button, Form, Modal } from "react-bootstrap";
 
-function PasswordFormModal({ show, handleClose }) {
+function PasswordFormModal({
+  show,
+  handleClose,
+  onSubmit,
+  isLoading,
+  isError,
+  error,
+}) {
   const [validated, setValidated] = useState(false);
 
   const handleSubmit = (event) => {
@@ -17,7 +24,7 @@ function PasswordFormModal({ show, handleClose }) {
     const formData = new FormData(form);
     const values = Object.fromEntries(formData.entries());
     setValidated(false);
-    console.log("----", values);
+    onSubmit(values);
   };
 
   return (
@@ -63,14 +70,24 @@ function PasswordFormModal({ show, handleClose }) {
               Confirm password is required
             </Form.Control.Feedback>
           </Form.Group>
+          {isError && <Alert variant="danger">{error.toString()}</Alert>}
         </Modal.Body>
         <Modal.Footer className="d-flex justify-content-end">
           <div>
-            <Button variant="secondary" onClick={handleClose}>
+            <Button
+              variant="secondary"
+              disabled={isLoading}
+              onClick={handleClose}
+            >
               Cancel
             </Button>
-            <Button variant="primary" className="ms-3" type="submit">
-              Update
+            <Button
+              variant="primary"
+              disabled={isLoading}
+              className="ms-3"
+              type="submit"
+            >
+              {isLoading ? "Loading..." : "Submit"}
             </Button>
           </div>
         </Modal.Footer>
