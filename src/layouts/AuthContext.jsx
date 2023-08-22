@@ -67,7 +67,12 @@ function SelfHostAuthProvider({ children }) {
   }
 
   if (isError) {
-    return <ErrorPage message={error.toString()} />;
+    return (
+      <ErrorPage
+        isNeedLogin={true}
+        message={"Your session is break by " + error.toString()}
+      />
+    );
   }
 
   let v = getLocalInfo();
@@ -121,7 +126,12 @@ function ClerkAuthProvider({ children }) {
   }
 
   if (isError) {
-    return <ErrorPage message={error.toString()} />;
+    return (
+      <ErrorPage
+        isNeedLogin={true}
+        message={"Your session is break by: " + error.toString()}
+      />
+    );
   }
 
   let v = getLocalInfo();

@@ -113,6 +113,9 @@ function TokensList({
         <TokenNewCard token={newToken} onDone={handleNewTokenDone} />
       ) : null}
       <ListGroup variant="flush">
+        {tokens.length === 0 && (
+          <ListGroup.Item>No Tokens found.</ListGroup.Item>
+        )}
         {tokens.map((token) => renderRow(token))}
       </ListGroup>
       <TokenRemoveModal

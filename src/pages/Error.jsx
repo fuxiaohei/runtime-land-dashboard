@@ -1,6 +1,12 @@
-import { Alert, Container } from "react-bootstrap";
+import { Alert, Button, Container } from "react-bootstrap";
+import { removeLocalInfo } from "../api/client";
 
-function ErrorPage({ message }) {
+function ErrorPage({ message, isNeedLogin }) {
+  const handleLoginAgain = () => {
+    removeLocalInfo();
+    window.location.reload();
+  };
+
   return (
     <Container className="text-center mt-5">
       <div className="mb-4">
@@ -14,6 +20,13 @@ function ErrorPage({ message }) {
           <hr />
           <p className="mb-0">{message}</p>
         </Alert>
+        {isNeedLogin && (
+          <p>
+            <Button variant="outline-primary" onClick={handleLoginAgain}>
+              Login again
+            </Button>
+          </p>
+        )}
       </div>
     </Container>
   );
