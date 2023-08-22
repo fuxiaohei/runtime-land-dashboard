@@ -8,6 +8,14 @@ async function login_by_email(data) {
     return await clientPost("/v1/login", data);
 }
 
-export {
-    login_by_email, signup
-};
+async function forget_password(data) {
+    data.base = window.location.origin;
+    return await clientPost("/v1/forget-password", data);
+}
+
+async function reset_password(token) {
+    return await clientPost("/v1/reset-password/" + encodeURIComponent(token));
+}
+
+export { forget_password, login_by_email, reset_password, signup };
+

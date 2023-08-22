@@ -1,20 +1,20 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
 import {
-  Button,
-  Container,
-  ListGroup,
-  InputGroup,
-  Form,
-  Row,
-  Col,
   Alert,
+  Button,
+  Col,
+  Container,
+  Form,
+  InputGroup,
+  ListGroup,
+  Row,
 } from "react-bootstrap";
-import { createRegionToken, listRegionTokens } from "../../api/regions";
+import { createRegionToken, listRegionTokens } from "../../api/settings";
 import AdminNavHeader from "../../components/AdminNavHeader";
 import { AuthProvider } from "../../layouts/AuthContext";
 import MainLayout from "../../layouts/MainLayout";
 import QueryWrapper from "../../layouts/QueryWrapper";
-import { useState } from "react";
 
 function AdminTokensPage() {
   const {

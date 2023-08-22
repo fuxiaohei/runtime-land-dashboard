@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Badge, Container, ListGroup } from "react-bootstrap";
-import { listRegions } from "../../api/regions";
+import { listRegions } from "../../api/settings";
 import AdminNavHeader from "../../components/AdminNavHeader";
 import { AuthProvider } from "../../layouts/AuthContext";
 import MainLayout from "../../layouts/MainLayout";

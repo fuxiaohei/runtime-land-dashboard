@@ -1,11 +1,32 @@
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Alert, Container } from "react-bootstrap";
+import { getEmailSettings, updateEmailSettings } from "../../api/settings";
 import AdminEmailForm from "../../components/AdminEmailForm";
 import AdminNavHeader from "../../components/AdminNavHeader";
 import { isClerkJs } from "../../config";
 import { AuthProvider } from "../../layouts/AuthContext";
 import MainLayout from "../../layouts/MainLayout";
+import QueryWrapper from "../../layouts/QueryWrapper";
 
 function AdminEmailPage() {
+  const queryClient = useQueryClient();
+  const {
+    isLoading,
+    isError,
+    error,
+    data: settings,
+  } = useQuery({
+    queryKey: ["settings-email"],
+    queryFn: getEmailSettings,
+    retry: false,
+  });
+
+  const mutation = useMutation(updateEmailSettings, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("settings-email");
+    },
+  });
+
   return (
     <AuthProvider>
       <MainLayout title="Regions | Admin Panel | Runtime.land">
@@ -21,7 +42,16 @@ function AdminEmailPage() {
               SMTP.
             </Alert>
           )}
-          <AdminEmailForm />
+          <QueryWrapper isLoading={isLoading} isError={isError} error={error}>
+            <AdminEmailForm
+              data={settings || {}}
+              onSubmit={(data) => mutation.mutate(data)}
+              isSuccess={mutation.isSuccess}
+              isError={mutation.isError}
+              error={mutation.error}
+              isLoading={mutation.isLoading}
+            />
+          </QueryWrapper>
         </Container>
       </MainLayout>
     </AuthProvider>

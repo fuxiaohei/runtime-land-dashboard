@@ -132,11 +132,11 @@ function AdminStorageForm({ data, onSubmit, isSuccess }) {
       className="border-top mt-4 pt-4"
       onSubmit={handleSubmit}
     >
-      {isSuccess ? (
+      {isSuccess && (
         <Alert className="mb-3" variant="success" dismissible>
           Settings updated successfully
         </Alert>
-      ) : null}
+      )}
       <Form.Group className="mb-3">
         <Form.Label>Storage Provider</Form.Label>
         <Form.Control

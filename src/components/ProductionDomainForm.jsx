@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { Button, Card, Col, Form, Row } from "react-bootstrap";
-import { listDomainSettings } from "../api/regions";
+import { listDomainSettings } from "../api/settings";
 import LoadingPage from "../pages/Loading";
 
 function ProductionDomainForm() {

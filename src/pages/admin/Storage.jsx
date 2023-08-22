@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { Alert, Container } from "react-bootstrap";
-import { listStorageSettings, updateStorageSettings } from "../../api/regions";
+import { listStorageSettings, updateStorageSettings } from "../../api/settings";
 import AdminNavHeader from "../../components/AdminNavHeader";
 import AdminStorageForm from "../../components/AdminStorageForm";
 import { AuthProvider } from "../../layouts/AuthContext";

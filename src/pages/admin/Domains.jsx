@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { Alert, Button, Container, Form } from "react-bootstrap";
-import { listDomainSettings, updateDomainSettings } from "../../api/regions";
+import { listDomainSettings, updateDomainSettings } from "../../api/settings";
 import AdminNavHeader from "../../components/AdminNavHeader";
 import { AuthProvider } from "../../layouts/AuthContext";
 import MainLayout from "../../layouts/MainLayout";

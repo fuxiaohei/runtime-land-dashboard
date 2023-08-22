@@ -40,6 +40,15 @@ async function getStats() {
     return clientGet("/v1/settings/stats")
 }
 
-export {
-    getStats, createRegionToken, listRegionTokens, listDomainSettings, listRegions, listStorageSettings, updateDomainSettings, updateStorageSettings
-};
+// getEmailSettings returns email settings.
+async function getEmailSettings() {
+    return clientGet("/v1/settings/email")
+}
+
+// updateEmailSettings updates email settings.
+async function updateEmailSettings(data){
+    return clientPost("/v1/settings/email", data)
+}
+
+export { createRegionToken, getEmailSettings, getStats, listDomainSettings, listRegionTokens, listRegions, listStorageSettings, updateDomainSettings, updateEmailSettings, updateStorageSettings };
+

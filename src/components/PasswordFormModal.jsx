@@ -64,13 +64,15 @@ function PasswordFormModal({ show, handleClose }) {
             </Form.Control.Feedback>
           </Form.Group>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Cancel
-          </Button>
-          <Button variant="primary" type="submit">
-            Update
-          </Button>
+        <Modal.Footer className="d-flex justify-content-end">
+          <div>
+            <Button variant="secondary" onClick={handleClose}>
+              Cancel
+            </Button>
+            <Button variant="primary" className="ms-3" type="submit">
+              Update
+            </Button>
+          </div>
         </Modal.Footer>
       </Form>
     </Modal>
