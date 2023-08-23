@@ -1,13 +1,13 @@
-import { Alert, Button, Form } from "react-bootstrap";
+import { Alert, Button, Form } from 'react-bootstrap';
 
-function LocalStorageForm({ data }) {
+function FsStorageForm({ data }) {
   return (
     <div className="storage-local">
       <Form.Group className="mb-3">
         <Form.Label>Local Storage Path</Form.Label>
         <Form.Control type="text" disabled defaultValue={data.path} />
         <Form.Text className="text-muted">
-          Enter the path where your project's files will be stored
+          Enter the path where your project files will be stored
         </Form.Text>
       </Form.Group>
       <div className="text-start">
@@ -113,8 +113,8 @@ function S3StorageForm({ data }) {
 
 function AdminStorageForm({ data, onSubmit, isSuccess }) {
   const subForm =
-    data?.storage_type === "local" ? (
-      <LocalStorageForm data={data.local} />
+    data?.storage_type === "fs" ? (
+      <FsStorageForm data={data.local} />
     ) : (
       <S3StorageForm data={data.s3} />
     );

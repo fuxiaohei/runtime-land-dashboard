@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
-import { Button, Form, InputGroup, ListGroup } from "react-bootstrap";
+import { Alert, Button, Form, InputGroup, ListGroup } from "react-bootstrap";
 import { BiTrash } from "react-icons/bi";
 import ReactTimeAgo from "react-time-ago";
 import { removeToken } from "../api/token";
@@ -114,7 +114,13 @@ function TokensList({
       ) : null}
       <ListGroup variant="flush">
         {tokens.length === 0 && (
-          <ListGroup.Item>No Tokens found.</ListGroup.Item>
+          <ListGroup.Item>
+            <p>No Tokens found.</p>
+            <Alert variant="light">
+              Run <code>land-cli deploy --token=[your-deployment-token]</code>{" "}
+              to upload and deploy your project.
+            </Alert>
+          </ListGroup.Item>
         )}
         {tokens.map((token) => renderRow(token))}
       </ListGroup>

@@ -71,7 +71,13 @@ function AdminTokensPage() {
           <ListGroup className="lh-lg" variant="flush">
             <QueryWrapper isLoading={isLoading} isError={isError} error={error}>
               {(tokens || []).length == 0 ? (
-                <ListGroup.Item>No Tokens found.</ListGroup.Item>
+                <ListGroup.Item>
+                  <p>No Tokens found.</p>
+                  <Alert variant="light">
+                    <code>land-edge</code> component use this token to connect
+                    to Runtime.land center.
+                  </Alert>
+                </ListGroup.Item>
               ) : null}
               {(tokens || []).map((region) => renderRow(region))}
             </QueryWrapper>
@@ -79,7 +85,7 @@ function AdminTokensPage() {
           <Row>
             <Col md={4}>
               <Form onSubmit={handleSubmit}>
-                <InputGroup className="mt-4">
+                <InputGroup>
                   <Form.Control
                     required
                     placeholder="token's name"

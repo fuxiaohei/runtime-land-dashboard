@@ -98,6 +98,9 @@ function DeploymentsList({ deployments, onPublish, onDisable, onEnable }) {
     <div className="mt-3 deployments-list">
       <h5 className="mb-2 fw-bold">All Deployments</h5>
       <ListGroup variant="flush">
+        {deployments.length === 0 && (
+          <ListGroup.Item className="text-secondary"> No deployments found.</ListGroup.Item>
+        )}
         {deployments.map((deployment) => renderRow(deployment))}
       </ListGroup>
     </div>

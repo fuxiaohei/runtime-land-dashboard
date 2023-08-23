@@ -57,8 +57,8 @@ function MainLayout({ title, children }) {
             </Nav>
             <Navbar.Collapse className="justify-content-end">
               <Nav>
-                <Nav.Link href="#">Docs</Nav.Link>
-                <Nav.Link href="#">Feedback</Nav.Link>
+                <Nav.Link target="_blank" href="https://runtime.land">Docs</Nav.Link>
+                <Nav.Link target="_blank" href="https://github.com/fuxiaohei/runtime-land">Feedback</Nav.Link>
               </Nav>
               <Navbar.Text>
                 <img
