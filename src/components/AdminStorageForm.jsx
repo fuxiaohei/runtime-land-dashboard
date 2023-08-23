@@ -1,4 +1,4 @@
-import { Alert, Button, Form } from 'react-bootstrap';
+import { Alert, Button, Form } from "react-bootstrap";
 
 function FsStorageForm({ data }) {
   return (
@@ -102,9 +102,21 @@ function S3StorageForm({ data }) {
           Enter the root path to store your project's files
         </Form.Text>
       </Form.Group>
+      <Form.Group className="mb-3">
+        <Form.Label>Root path</Form.Label>
+        <Form.Control
+          name="bucket_basepath"
+          type="text"
+          defaultValue={data.bucket_basepath}
+          required
+        />
+        <Form.Text className="text-muted">
+          Enter the base path to visit S3 bucket
+        </Form.Text>
+      </Form.Group>
       <div className="text-start">
         <Button className="d-inline-block" variant="primary" type="submit">
-          Save
+          Update Storage Setting
         </Button>
       </div>
     </div>
@@ -132,11 +144,6 @@ function AdminStorageForm({ data, onSubmit, isSuccess }) {
       className="border-top mt-4 pt-4"
       onSubmit={handleSubmit}
     >
-      {isSuccess && (
-        <Alert className="mb-3" variant="success" dismissible>
-          Settings updated successfully
-        </Alert>
-      )}
       <Form.Group className="mb-3">
         <Form.Label>Storage Provider</Form.Label>
         <Form.Control
@@ -151,6 +158,11 @@ function AdminStorageForm({ data, onSubmit, isSuccess }) {
         </Form.Text>
       </Form.Group>
       {subForm}
+      {isSuccess && (
+        <Alert className="mt-4" variant="success" dismissible>
+          Settings updated successfully
+        </Alert>
+      )}
     </Form>
   );
 }
