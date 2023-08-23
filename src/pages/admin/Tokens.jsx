@@ -84,7 +84,7 @@ function AdminTokensPage() {
           </ListGroup>
           <Row>
             <Col md={4}>
-              <Form onSubmit={handleSubmit}>
+              <Form className="mt-3" onSubmit={handleSubmit}>
                 <InputGroup>
                   <Form.Control
                     required
