@@ -38,19 +38,27 @@ function AdminRegionsPage() {
     <AuthProvider>
       <MainLayout title="Regions | Admin Panel | Runtime.land">
         <Container id="admin-page" className="mt-4">
-          <h3 className="mb-3">Admin Panel</h3>
-          <AdminNavHeader activeKey="regions" />
-          <p className="text-secondary py-2">
-            The following regions are registered with Runtime.land:
-          </p>
-          <ListGroup className="lh-lg" variant="flush">
-            <QueryWrapper isLoading={isLoading} isError={isError} error={error}>
-              {(regions || []).length == 0 ? (
-                <ListGroup.Item>No Regions found.</ListGroup.Item>
-              ) : null}
-              {(regions || []).map((region) => renderRow(region))}
-            </QueryWrapper>
-          </ListGroup>
+          <h3 className="mb-2 border-bottom pb-3">Admin Panel</h3>
+          <div className="d-flex justify-content-start">
+            <AdminNavHeader activeKey="regions" />
+            <div>
+              <p className="text-secondary py-2">
+                The following regions are registered with Runtime.land:
+              </p>
+              <ListGroup className="lh-lg" variant="flush">
+                <QueryWrapper
+                  isLoading={isLoading}
+                  isError={isError}
+                  error={error}
+                >
+                  {(regions || []).length == 0 ? (
+                    <ListGroup.Item>No Regions found.</ListGroup.Item>
+                  ) : null}
+                  {(regions || []).map((region) => renderRow(region))}
+                </QueryWrapper>
+              </ListGroup>
+            </div>
+          </div>
         </Container>
       </MainLayout>
     </AuthProvider>

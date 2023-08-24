@@ -3,7 +3,11 @@ import { NavbarLink } from "../layouts/Links";
 
 function AdminNavHeader({ activeKey }) {
   return (
-    <Nav className="my-3" variant="underline" defaultActiveKey={activeKey}>
+    <Nav
+      className="me-5 flex-column"
+      variant="underline"
+      defaultActiveKey={activeKey}
+    >
       <Nav.Item>
         <NavbarLink className="me-3" eventKey="stats" to="/admin/stats">
           Stats

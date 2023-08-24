@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Alert, Button, Form } from "react-bootstrap";
 
 function FsStorageForm({ data }) {
@@ -5,23 +6,16 @@ function FsStorageForm({ data }) {
     <div className="storage-local">
       <Form.Group className="mb-3">
         <Form.Label>Local Storage Path</Form.Label>
-        <Form.Control type="text" disabled defaultValue={data.path} />
+        <Form.Control type="text" name="path" defaultValue={data.path} />
         <Form.Text className="text-muted">
-          Enter the path where your project files will be stored
+          Enter the path where your project files will be stored. Need{" "}
+          <strong>absolute path</strong>.
         </Form.Text>
       </Form.Group>
       <div className="text-start">
-        <Button
-          className="d-inline-block"
-          variant="primary"
-          type="submit"
-          disabled
-        >
-          Save
+        <Button className="d-inline-block" variant="primary" type="submit">
+          Update Storage Setting
         </Button>
-        <Alert className="mt-3 p-2 ms-4 d-inline-block" variant="danger">
-          Local storage is not supported to change at the moment.
-        </Alert>
       </div>
     </div>
   );
@@ -103,7 +97,7 @@ function S3StorageForm({ data }) {
         </Form.Text>
       </Form.Group>
       <Form.Group className="mb-3">
-        <Form.Label>Root path</Form.Label>
+        <Form.Label>Bucket Basepath</Form.Label>
         <Form.Control
           name="bucket_basepath"
           type="text"
@@ -111,7 +105,8 @@ function S3StorageForm({ data }) {
           required
         />
         <Form.Text className="text-muted">
-          Enter the base path to visit S3 bucket
+          Enter the base path to visit S3 bucket. **You need set your bucket to
+          public**.
         </Form.Text>
       </Form.Group>
       <div className="text-start">
@@ -124,18 +119,24 @@ function S3StorageForm({ data }) {
 }
 
 function AdminStorageForm({ data, onSubmit, isSuccess }) {
-  const subForm =
-    data?.storage_type === "fs" ? (
-      <FsStorageForm data={data.local} />
-    ) : (
-      <S3StorageForm data={data.s3} />
-    );
+  const [storageType, setStorageType] = useState(data?.storage_type || "fs");
+
+  const subForm = (storage_type) => {
+    switch (storage_type) {
+      case "fs":
+        return <FsStorageForm data={data.local} />;
+      case "s3":
+        return <S3StorageForm data={data.s3} />;
+      default:
+        return <></>;
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const values = Object.fromEntries(formData.entries());
-    onSubmit({ typename: data.storage_type, storage: values });
+    onSubmit({ typename: storageType, storage: values });
   };
 
   return (
@@ -146,18 +147,21 @@ function AdminStorageForm({ data, onSubmit, isSuccess }) {
     >
       <Form.Group className="mb-3">
         <Form.Label>Storage Provider</Form.Label>
-        <Form.Control
+        <Form.Select
           name="storage_type"
           type="text"
           readOnly
           defaultValue={data?.storage_type}
-          disabled
-        />
+          onChange={(e) => setStorageType(e.target.value)}
+        >
+          <option value="fs">FileSystem</option>
+          <option value="s3">AWS S3 Like</option>
+        </Form.Select>
         <Form.Text className="text-muted">
           Select the storage provider for storing your project's files
         </Form.Text>
       </Form.Group>
-      {subForm}
+      {subForm(storageType)}
       {isSuccess && (
         <Alert className="mt-4" variant="success" dismissible>
           Settings updated successfully

@@ -102,20 +102,29 @@ function AdminDomainsPage() {
     <AuthProvider>
       <MainLayout title="Domains | Admin Panel | Runtime.land">
         <Container id="admin-page" className="mt-4">
-          <h3 className="mb-3">Admin Panel</h3>
-          <AdminNavHeader activeKey="domains" />
-          <p className="text-secondary py-2">
-            Domains setting is used to configure the domains that Runtime.land
-            deploys to. Format as follows: <code>[protocol]</code>://project.
-            <code>[domain]</code>/
-          </p>
-          <QueryWrapper isLoading={isLoading} isError={isError} error={error}>
-            <AdminDomainsForm
-              isSuccess={isSuccess}
-              settings={settings}
-              onSubmit={handleSubmit}
-            />
-          </QueryWrapper>
+          <h3 className="mb-2 border-bottom pb-3">Admin Panel</h3>
+          <div className="d-flex justify-content-start">
+            <AdminNavHeader activeKey="domains" />
+            <div>
+              <p className="text-secondary py-2">
+                Domains setting is used to configure the domains that
+                Runtime.land deploys to. Format as follows:{" "}
+                <code>[protocol]</code>://project.
+                <code>[domain]</code>/
+              </p>
+              <QueryWrapper
+                isLoading={isLoading}
+                isError={isError}
+                error={error}
+              >
+                <AdminDomainsForm
+                  isSuccess={isSuccess}
+                  settings={settings}
+                  onSubmit={handleSubmit}
+                />
+              </QueryWrapper>
+            </div>
+          </div>
         </Container>
       </MainLayout>
     </AuthProvider>

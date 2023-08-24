@@ -41,24 +41,32 @@ function AdminStoragePage() {
     <AuthProvider>
       <MainLayout title="Storage | Admin Panel | Runtime.land">
         <Container id="admin-page" className="mt-4">
-          <h3 className="mb-3">Admin Panel</h3>
-          <AdminNavHeader activeKey="storage" />
-          <p className="text-secondary py-2">
-            Storage settings are used to configure the storage provider that
-            Runtime.land uses to store your project's files.
-          </p>
-          <Alert variant="warning">
-            All assets are not migrated to the new storage provider yet. Please
-            do not change the storage provider until your migration is
-            completed.
-          </Alert>
-          <QueryWrapper isLoading={isLoading} isError={isError} error={error}>
-            <AdminStorageForm
-              isSuccess={isSuccess}
-              data={settings}
-              onSubmit={handleSubmit}
-            />
-          </QueryWrapper>
+          <h3 className="mb-2 border-bottom pb-3">Admin Panel</h3>
+          <div className="d-flex justify-content-start">
+            <AdminNavHeader activeKey="storage" />
+            <div>
+              <p className="text-secondary py-2">
+                Storage settings are used to configure the storage provider that
+                Runtime.land uses to store your project's files.
+              </p>
+              <Alert variant="warning">
+                All assets are not migrated when changing storage provider yet.
+                Please do not change the storage provider until your migration
+                is completed.
+              </Alert>
+              <QueryWrapper
+                isLoading={isLoading}
+                isError={isError}
+                error={error}
+              >
+                <AdminStorageForm
+                  isSuccess={isSuccess}
+                  data={settings}
+                  onSubmit={handleSubmit}
+                />
+              </QueryWrapper>
+            </div>
+          </div>
         </Container>
       </MainLayout>
     </AuthProvider>

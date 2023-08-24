@@ -32,7 +32,10 @@ async function listStorageSettings() {
 
 // updateStorageSettings updates storage setting.
 async function updateStorageSettings({ typename, storage }) {
-    return await clientPost("/v1/settings/storage?typename=" + typename, storage)
+    let data = {};
+    data[typename] = storage
+    data["typename"] = typename
+    return await clientPost("/v1/settings/storage", data)
 }
 
 // getStats returns stats.
@@ -55,5 +58,5 @@ async function updatePassword(data) {
 }
 
 
-export { createRegionToken, getEmailSettings, getStats, listDomainSettings, listRegionTokens, listRegions, listStorageSettings, updateDomainSettings, updateEmailSettings, updateStorageSettings, updatePassword };
+export { createRegionToken, getEmailSettings, getStats, listDomainSettings, listRegionTokens, listRegions, listStorageSettings, updateDomainSettings, updateEmailSettings, updatePassword, updateStorageSettings };
 
