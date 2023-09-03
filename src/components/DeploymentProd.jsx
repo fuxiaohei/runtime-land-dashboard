@@ -1,32 +1,13 @@
-import { Alert, ListGroup } from "react-bootstrap";
 import { BiLinkExternal, BiTime } from "react-icons/bi";
 import ReactTimeAgo from "react-time-ago";
+import ProjectStartGuide from "./ProjectStartGuide";
 
 function DeploymentProd({ project }) {
   if (!project.prod_url) {
     return (
       <div className="border-bottom border-top deployment-production">
         <h5 className="my-3 text-secondary fw-bold">No Production Domains</h5>
-        <Alert variant="light">
-          <p>
-            You can create a production deployment to generate a production
-            domain:
-          </p>
-          <ListGroup variant="flush" numbered>
-            <ListGroup.Item>
-              use <code>land-cli</code> to publish local project as production
-              deployment:
-              <br />
-              <code>
-                land-cli deploy ---production --token=[your-deploy-token]
-              </code>
-            </ListGroup.Item>
-            <ListGroup.Item>
-              Click on the <code>Publish</code> link in
-              one of your deployments in <code>All Deployments</code> list.
-            </ListGroup.Item>
-          </ListGroup>
-        </Alert>
+        <ProjectStartGuide />
       </div>
     );
   }

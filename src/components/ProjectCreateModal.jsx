@@ -76,8 +76,6 @@ function ProjectCreateModal({ show, handleClose, handleCreate, alert }) {
               }}
             >
               <option value="rust">Rust</option>
-              <option value="java">Java</option>
-              <option value="golang">Go</option>
             </Form.Select>
           </Form.Group>
           {alert ? <Alert variant="danger">{alert}</Alert> : null}

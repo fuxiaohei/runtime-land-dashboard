@@ -7,6 +7,7 @@ import ProjectsList from "../components/ProjectsList";
 import { AuthProvider } from "../layouts/AuthContext";
 import MainLayout from "../layouts/MainLayout";
 import LoadingPage from "./Loading";
+import ProjectStartGuide from "../components/ProjectStartGuide";
 
 function ProjectsHeader({ count, onShow, onSearch }) {
   return (
@@ -97,7 +98,10 @@ function ProjectsPage() {
         {projects.length ? (
           <ProjectsList projects={projects || []} />
         ) : (
-          <div className="fs-4 mt-4 text-secondary">No projects found.</div>
+          <div className="mt-4 text-secondary">
+            <p className="fs-4">No projects found.</p>
+            {searchFilter == "all" && <ProjectStartGuide />}
+          </div>
         )}
         <ProjectCreateModal
           show={showCreateModal}
