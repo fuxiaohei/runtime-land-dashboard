@@ -13,6 +13,7 @@ import ProjectHeader from "../components/ProjectHeader";
 import { AuthProvider } from "../layouts/AuthContext";
 import MainLayout from "../layouts/MainLayout";
 import LoadingPage from "./Loading";
+import QueryWrapper from "../layouts/QueryWrapper";
 
 function ProjectOverviewPage() {
   let { name: projectName } = useParams();
@@ -67,25 +68,24 @@ function ProjectOverviewPage() {
   });
 
   const renderContainer = () => {
-    if (isLoading) {
-      return <LoadingPage />;
-    }
     return (
       <Container className="mx-auto" id="project-overview-container">
-        <ProjectHeader project={overview?.project} activeKey="overview" />
-        <DeploymentProd project={overview?.project} />
-        <DeploymentsList
-          deployments={overview?.deployments || []}
-          onPublish={(uuid) => {
-            publishMutation.mutate(uuid);
-          }}
-          onDisable={(uuid) => {
-            disableMutation.mutate(uuid);
-          }}
-          onEnable={(uuid) => {
-            enableMutation.mutate(uuid);
-          }}
-        />
+        <QueryWrapper isLoading={isLoading} isError={isError} error={error}>
+          <ProjectHeader project={overview?.project} activeKey="overview" />
+          <DeploymentProd project={overview?.project} />
+          <DeploymentsList
+            deployments={overview?.deployments || []}
+            onPublish={(uuid) => {
+              publishMutation.mutate(uuid);
+            }}
+            onDisable={(uuid) => {
+              disableMutation.mutate(uuid);
+            }}
+            onEnable={(uuid) => {
+              enableMutation.mutate(uuid);
+            }}
+          />
+        </QueryWrapper>
       </Container>
     );
   };

@@ -12,10 +12,10 @@ import ProjectStartGuide from "../components/ProjectStartGuide";
 function ProjectsHeader({ count, onShow, onSearch }) {
   return (
     <div className="projects-header mt-4 d-flex justify-content-between">
-      <h2>
+      <h3>
         Projects
         <span className="text-secondary fs-5 ms-3 fw-bold">({count})</span>
-      </h2>
+      </h3>
       <div>
         <Form className="d-inline-block align-middle me-3">
           <Form.Control

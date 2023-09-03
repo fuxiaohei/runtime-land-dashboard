@@ -5,7 +5,7 @@ import { NavbarLink } from "../layouts/Links";
 function ProjectHeader({ activeKey, project }) {
   const renderButton = () => {
     if (project.status === "pending") {
-      return <Button variant="secondary">Pending</Button>;
+      return <Button variant="light">Empty</Button>;
     }
     if (project.prod_deployment) {
       return (
@@ -21,7 +21,7 @@ function ProjectHeader({ activeKey, project }) {
         </Button>
       );
     }
-    return <Button variant="warning">Developing</Button>;
+    return <Button variant="success">Running</Button>;
   };
 
   return (

@@ -3,7 +3,7 @@ import { FiAlertTriangle } from "react-icons/fi";
 
 function LoadingLine() {
   return (
-    <div className="lh-lg text-secondary">
+    <div className="lh-lg text-secondary query-wrapper-loading">
       <Spinner animation="border" size="sm" />
       <span className="ms-3">Loading...</span>
     </div>
@@ -12,7 +12,7 @@ function LoadingLine() {
 
 function ErrorLine({ error }) {
   return (
-    <div className="lh-lh text-danger">
+    <div className="lh-lh text-danger query-wrapper-error">
       <FiAlertTriangle size={20} />
       <span className="ms-3">{String(error)}</span>
     </div>

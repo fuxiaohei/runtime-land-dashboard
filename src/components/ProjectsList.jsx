@@ -3,6 +3,7 @@ import { BiLinkExternal } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import ReactTimeAgo from "react-time-ago";
 import { ButtonLink } from "../layouts/Links";
+import { TbBrandRust, TbBrandSketch } from "react-icons/tb";
 
 function ProjectPendingButton({ name }) {
   return (
@@ -10,9 +11,9 @@ function ProjectPendingButton({ name }) {
       <ButtonLink
         size="sm"
         to={"/projects/" + name + "/overview"}
-        variant="secondary"
+        variant="light"
       >
-        Pending
+        Empty
       </ButtonLink>
     </div>
   );
@@ -34,13 +35,13 @@ function ProjectRunningButton({ name }) {
 
 function ProjectDevelopmentButton({ name }) {
   return (
-    <div className="project-btn">
+    <div className="project-btn developing-btn">
       <ButtonLink
         size="sm"
         to={"/projects/" + name + "/overview"}
-        variant="warning"
+        variant="success"
       >
-        Developing
+        Running
       </ButtonLink>
     </div>
   );
@@ -59,29 +60,37 @@ function ProjectsListRow({ data }) {
     return <ProjectDevelopmentButton name={project.name} />;
   };
 
+  const renderLanguage = (language) => {
+    language = String(language).toLocaleLowerCase();
+    if (language == "rust") {
+      return <TbBrandRust size={18} />;
+    }
+    return <TbBrandSketch size={18} />;
+  };
+
   return (
     <Col md={6} className="mb-2 p-2">
       <div className="border project-row rounded-3 p-3 d-flex justify-content-between ">
         <div className="project-metadata pe-1">
-          <h5 className="name fw-bolder">
+          <h6 className="name fw-bolder">
             <Link
               to={"/projects/" + project.name + "/overview"}
               className="text-dark text-decoration-none"
             >
               {project.name}
             </Link>
-          </h5>
+          </h6>
           <div className="project-metadata-items py-2 text-secondary">
             <div>
               <span className="border-end pe-2 language text-capitalize">
-                {project.language}
+                {renderLanguage(project.language)}
               </span>
               {deployments_count > 0 ? (
                 <span className="border-end px-2 deployment">
                   {deployments_count} Deploys
                 </span>
               ) : null}
-              <span className="ps-2 updated">
+              <span className="ps-2 fs-6 updated">
                 <ReactTimeAgo date={project.updated_at * 1000} locale="en-US" />
               </span>
             </div>

@@ -43,19 +43,29 @@ $table-hover-bg: #e4edf7;
 }
 
 #projects-list-container {
-  width: 64rem;
+  width: 56rem;
   .project-link {
     max-width: 18rem;
   }
   .project-row:hover {
-    border-color: rgba(107, 114, 128, 0.8) !important;
+    border-color: rgba(158, 167, 186, 0.8) !important;
     background-color: #fff;
+    box-shadow: 0 0 0 0.2rem rgba(107, 114, 128, 0.1) !important;
+  }
+  .project-row {
+    transition-duration: 400ms;
   }
 }
 
 #project-overview-container,
 #account-container {
-  width: 64rem;
+  width: 56rem;
+}
+
+#project-overview-container {
+  .query-wrapper-error {
+    padding: 3rem;
+  }
 }
 
 #deployment-tokens-list {
