@@ -6,14 +6,13 @@ import {
   enableDeployment,
   publishDeployment,
 } from "../api/deployments";
-import { getProjectOverview } from "../api/projects";
 import DeploymentProd from "../components/DeploymentProd";
 import DeploymentsList from "../components/DeploymentsList";
 import ProjectHeader from "../components/ProjectHeader";
 import { AuthProvider } from "../layouts/AuthContext";
 import MainLayout from "../layouts/MainLayout";
-import LoadingPage from "./Loading";
 import QueryWrapper from "../layouts/QueryWrapper";
+import { clientv2 } from "../api/clientv2";
 
 function ProjectOverviewPage() {
   let { name: projectName } = useParams();
@@ -28,7 +27,7 @@ function ProjectOverviewPage() {
     queryKey: ["project-overview", { projectName }],
     queryFn: async ({ queryKey }) => {
       const { projectName } = queryKey[1];
-      const data = await getProjectOverview(projectName);
+      const data = await clientv2.project.overview(projectName);
       return data;
     },
     retry: false,
@@ -67,33 +66,29 @@ function ProjectOverviewPage() {
     onError: (error) => {},
   });
 
-  const renderContainer = () => {
-    return (
-      <Container className="mx-auto" id="project-overview-container">
-        <QueryWrapper isLoading={isLoading} isError={isError} error={error}>
-          <ProjectHeader project={overview?.project} activeKey="overview" />
-          <DeploymentProd project={overview?.project} />
-          <DeploymentsList
-            deployments={overview?.deployments || []}
-            onPublish={(uuid) => {
-              publishMutation.mutate(uuid);
-            }}
-            onDisable={(uuid) => {
-              disableMutation.mutate(uuid);
-            }}
-            onEnable={(uuid) => {
-              enableMutation.mutate(uuid);
-            }}
-          />
-        </QueryWrapper>
-      </Container>
-    );
-  };
-
   return (
     <AuthProvider>
       <MainLayout title={projectName + " | Runtime.land"}>
-        {renderContainer()}
+        <QueryWrapper isLoading={isLoading} isError={isError} error={error}>
+          <Container className="mx-auto" id="project-overview-container">
+            <QueryWrapper isLoading={isLoading} isError={isError} error={error}>
+              <ProjectHeader project={overview?.project} activeKey="overview" />
+              <DeploymentProd project={overview?.project} />
+              <DeploymentsList
+                deployments={overview?.deployments || []}
+                onPublish={(uuid) => {
+                  publishMutation.mutate(uuid);
+                }}
+                onDisable={(uuid) => {
+                  disableMutation.mutate(uuid);
+                }}
+                onEnable={(uuid) => {
+                  enableMutation.mutate(uuid);
+                }}
+              />
+            </QueryWrapper>
+          </Container>
+        </QueryWrapper>
       </MainLayout>
     </AuthProvider>
   );

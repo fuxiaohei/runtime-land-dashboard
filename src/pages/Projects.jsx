@@ -1,13 +1,14 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { Button, Container, Form } from "react-bootstrap";
+import { Button, Container, Form, InputGroup } from "react-bootstrap";
 import { createProject, listProjects } from "../api/projects";
 import ProjectCreateModal from "../components/ProjectCreateModal";
 import ProjectsList from "../components/ProjectsList";
 import { AuthProvider } from "../layouts/AuthContext";
 import MainLayout from "../layouts/MainLayout";
-import LoadingPage from "./Loading";
 import ProjectStartGuide from "../components/ProjectStartGuide";
+import QueryWrapper from "../layouts/QueryWrapper";
+import { ButtonLink } from "../layouts/Links";
 
 function ProjectsHeader({ count, onShow, onSearch }) {
   return (
@@ -18,17 +19,18 @@ function ProjectsHeader({ count, onShow, onSearch }) {
       </h3>
       <div>
         <Form className="d-inline-block align-middle me-3">
-          <Form.Control
-            type="search"
-            placeholder="Search"
-            className="me-2"
-            aria-label="Search"
-            onChange={(e) => onSearch(e.target.value)}
-          />
+          <InputGroup>
+            <Form.Control
+              type="search"
+              placeholder="filter by project name"
+              aria-label="Search"
+              onChange={(e) => onSearch(e.target.value)}
+            />
+            <ButtonLink variant="primary" to="/new">
+              + New Project
+            </ButtonLink>
+          </InputGroup>
         </Form>
-        <Button variant="primary" onClick={onShow}>
-          + New Project
-        </Button>
       </div>
     </div>
   );
@@ -80,43 +82,34 @@ function ProjectsPage() {
     });
   };
 
-  const renderContainer = (projects) => {
-    if (isLoading) {
-      return <LoadingPage />;
-    }
-    if (isError) {
-      return <div>{error.toString()}</div>;
-    }
-    projects = filterProjects(projects);
-    return (
-      <Container className="mx-auto" id="projects-list-container">
-        <ProjectsHeader
-          count={projects?.length || 0}
-          onShow={() => setShowCreateModal(true)}
-          onSearch={handleSearch}
-        />
-        {projects.length ? (
-          <ProjectsList projects={projects || []} />
-        ) : (
-          <div className="mt-4 text-secondary">
-            <p className="fs-4">No projects found.</p>
-            {searchFilter == "all" && <ProjectStartGuide />}
-          </div>
-        )}
-        <ProjectCreateModal
-          show={showCreateModal}
-          handleClose={() => setShowCreateModal(false)}
-          handleCreate={(data) => createMutation.mutate(data)}
-          alert={createAlert}
-        />
-      </Container>
-    );
-  };
+  const filtered_projects = filterProjects(projects);
 
   return (
     <AuthProvider>
       <MainLayout title="Projects | Runtime.land">
-        {renderContainer(projects)}
+        <QueryWrapper isLoading={isLoading} isError={isError} error={error}>
+          <Container className="mx-auto" id="projects-list-container">
+            <ProjectsHeader
+              count={filtered_projects?.length || 0}
+              onShow={() => setShowCreateModal(true)}
+              onSearch={handleSearch}
+            />
+            {filtered_projects.length ? (
+              <ProjectsList projects={filtered_projects || []} />
+            ) : (
+              <div className="mt-4 text-secondary">
+                <p className="fs-4">No projects found.</p>
+                {searchFilter == "all" && <ProjectStartGuide />}
+              </div>
+            )}
+            <ProjectCreateModal
+              show={showCreateModal}
+              handleClose={() => setShowCreateModal(false)}
+              handleCreate={(data) => createMutation.mutate(data)}
+              alert={createAlert}
+            />
+          </Container>
+        </QueryWrapper>
       </MainLayout>
     </AuthProvider>
   );

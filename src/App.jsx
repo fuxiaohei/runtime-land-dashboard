@@ -1,9 +1,9 @@
 import {
-    ClerkLoaded,
-    ClerkLoading,
-    ClerkProvider,
-    SignIn,
-    SignUp,
+  ClerkLoaded,
+  ClerkLoading,
+  ClerkProvider,
+  SignIn,
+  SignUp,
 } from "@clerk/clerk-react";
 import { Navigate, Outlet, Route, Routes } from "react-router";
 import { isClerkJs } from "./config";
@@ -20,10 +20,12 @@ import AdminRegionsPage from "./pages/admin/Regions";
 import AdminStatsPage from "./pages/admin/Stats";
 import AdminStoragePage from "./pages/admin/Storage";
 import AdminTokensPage from "./pages/admin/Tokens";
+import ProjectCreatePage from "./pages/ProjectCreate";
 
 const routes = [
   { path: "/", element: <Navigate to="/projects" replace /> },
   { path: "/projects", element: <ProjectsPage /> },
+  { path: "/new", element: <ProjectCreatePage /> },
   { path: "/projects/:name/overview", element: <ProjectOverviewPage /> },
   { path: "/projects/:name/setting", element: <ProjectSettingPage /> },
   { path: "/account", element: <AccountPage /> },
