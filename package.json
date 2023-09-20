@@ -1,6 +1,6 @@
 {
   "name": "runtime-land-dashboard",
-  "version": "0.1.4-beta.1",
+  "version": "0.1.4-beta.5",
   "description": "dashboard for runtime.land",
   "main": "index.js",
   "scripts": {

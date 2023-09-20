@@ -63,10 +63,10 @@ async function clientGet(url) {
     }
 }
 
-async function clientDelete(url) {
+async function clientDelete(url, req) {
     let client = createClient();
     try {
-        let response = await client.delete(url);
+        let response = await client.delete(url, req);
         return response.data || {};
     } catch (error) {
         throw format_axios_error(error);
@@ -83,7 +83,18 @@ async function clientPost(url, req) {
     }
 }
 
+async function clientPut(url, req) {
+    let client = createClient();
+    try {
+        let response = await client.put(url, req);
+        return response.data || {};
+    } catch (error) {
+        throw format_axios_error(error);
+    }
+}
+
 export {
-    clientDelete, clientGet, clientPost,
+    clientDelete, clientGet, clientPost, clientPut,
     createClient, format_axios_error, getLocalInfo, handleTokenResponse, removeLocalInfo, setLocalInfo
 };
+

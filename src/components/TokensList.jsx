@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Alert, Button, Form, InputGroup, ListGroup } from "react-bootstrap";
 import { BiTrash } from "react-icons/bi";
 import ReactTimeAgo from "react-time-ago";
-import { removeToken } from "../api/token";
+import { clientv2 } from "../api/clientv2";
 import TokenNewCard from "./TokenNewCard";
 import TokenRemoveModal from "./TokenRemoveModal";
 
@@ -16,7 +16,7 @@ function TokensList({
 }) {
   const removeTokenMutation = useMutation({
     mutationFn: async (uuid) => {
-      await removeToken(uuid);
+      await clientv2.token.delete(uuid);
     },
     onSuccess: async () => {
       setRemoveModalShow(false);

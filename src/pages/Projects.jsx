@@ -1,14 +1,15 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { Button, Container, Form, InputGroup } from "react-bootstrap";
-import { createProject, listProjects } from "../api/projects";
+import { Container, Form, InputGroup } from "react-bootstrap";
+import { clientv2 } from "../api/clientv2";
+import { createProject } from "../api/projects";
 import ProjectCreateModal from "../components/ProjectCreateModal";
+import ProjectStartGuide from "../components/ProjectStartGuide";
 import ProjectsList from "../components/ProjectsList";
 import { AuthProvider } from "../layouts/AuthContext";
-import MainLayout from "../layouts/MainLayout";
-import ProjectStartGuide from "../components/ProjectStartGuide";
-import QueryWrapper from "../layouts/QueryWrapper";
 import { ButtonLink } from "../layouts/Links";
+import MainLayout from "../layouts/MainLayout";
+import QueryWrapper from "../layouts/QueryWrapper";
 
 function ProjectsHeader({ count, onShow, onSearch }) {
   return (
@@ -48,7 +49,7 @@ function ProjectsPage() {
     data: projects,
   } = useQuery({
     queryKey: ["projects-list"],
-    queryFn: listProjects,
+    queryFn: clientv2.project.list,
     retry: false,
   });
 

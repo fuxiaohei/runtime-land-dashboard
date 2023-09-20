@@ -12,7 +12,7 @@ import {
   handleTokenResponse,
   removeLocalInfo,
 } from "../api/client";
-import { createOauthToken, verifyToken } from "../api/token";
+import { clientv2 } from "../api/clientv2";
 import { isClerkJs } from "../config";
 import ErrorPage from "../pages/Error";
 import LoadingPage from "../pages/Loading";
@@ -37,7 +37,7 @@ async function verifyLocalToken() {
     let expired_at = localInfo.token.expired_at;
     if (expired_at && expired_at > now_ts) {
       console.log("local token is valid");
-      let response = await verifyToken(localInfo.token.value);
+      let response = await clientv2.auth.verify(localInfo.token.value);
       handleTokenResponse(response);
       console.log("verify local token");
       return true;
@@ -104,7 +104,7 @@ function ClerkAuthProvider({ children }) {
         oauth_provider: "clerk",
         oauth_social: user.primaryEmailAddress.linkedTo[0].type,
       };
-      let response = await createOauthToken(req);
+      let response = await clientv2.auth.create(req);
       handleTokenResponse(response);
       window.location.reload();
       return true;

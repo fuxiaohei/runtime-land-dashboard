@@ -1,13 +1,13 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { Alert, Button, Container } from "react-bootstrap";
-import { createDeploymentToken, listDeploymentTokens } from "../api/token";
+import { clientv2 } from "../api/clientv2";
+import { updatePassword } from "../api/settings";
 import PasswordFormModal from "../components/PasswordFormModal";
 import TokensList from "../components/TokensList";
 import { AuthProvider, useAuthContext } from "../layouts/AuthContext";
 import MainLayout from "../layouts/MainLayout";
 import QueryWrapper from "../layouts/QueryWrapper";
-import { updatePassword } from "../api/settings";
 
 function AccountCard() {
   const { user } = useAuthContext();
@@ -72,7 +72,9 @@ function DangerZone() {
           Delete Account
         </Button>
         {mutation.isSuccess && (
-          <Alert variant="success" className="mt-4">Password updated successfully</Alert>
+          <Alert variant="success" className="mt-4">
+            Password updated successfully
+          </Alert>
         )}
       </div>
       <PasswordFormModal
@@ -97,7 +99,7 @@ function AccountPage() {
     data: tokens,
   } = useQuery({
     queryKey: ["tokens"],
-    queryFn: listDeploymentTokens,
+    queryFn: clientv2.token.list,
     retry: false,
   });
 
@@ -105,7 +107,7 @@ function AccountPage() {
 
   const newTokenMutation = useMutation({
     mutationFn: async (name) => {
-      return await createDeploymentToken(name);
+      return await clientv2.token.create(name);
     },
     onSuccess: (data) => {
       setNewToken(data);

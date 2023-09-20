@@ -1,18 +1,13 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Container } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import {
-  disableDeployment,
-  enableDeployment,
-  publishDeployment,
-} from "../api/deployments";
+import { clientv2 } from "../api/clientv2";
 import DeploymentProd from "../components/DeploymentProd";
 import DeploymentsList from "../components/DeploymentsList";
 import ProjectHeader from "../components/ProjectHeader";
 import { AuthProvider } from "../layouts/AuthContext";
 import MainLayout from "../layouts/MainLayout";
 import QueryWrapper from "../layouts/QueryWrapper";
-import { clientv2 } from "../api/clientv2";
 
 function ProjectOverviewPage() {
   let { name: projectName } = useParams();
@@ -34,7 +29,7 @@ function ProjectOverviewPage() {
   });
 
   const publishMutation = useMutation({
-    mutationFn: publishDeployment,
+    mutationFn: clientv2.deployment.publish,
     onSuccess: async () => {
       await queryClient.invalidateQueries([
         "project-overview",
@@ -45,7 +40,7 @@ function ProjectOverviewPage() {
   });
 
   const disableMutation = useMutation({
-    mutationFn: disableDeployment,
+    mutationFn: clientv2.deployment.disable,
     onSuccess: async () => {
       await queryClient.invalidateQueries([
         "project-overview",
@@ -56,7 +51,7 @@ function ProjectOverviewPage() {
   });
 
   const enableMutation = useMutation({
-    mutationFn: enableDeployment,
+    mutationFn: clientv2.deployment.enable,
     onSuccess: async () => {
       await queryClient.invalidateQueries([
         "project-overview",

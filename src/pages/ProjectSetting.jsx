@@ -2,7 +2,8 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { Button, Container, Form, InputGroup } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
-import { getProject, removeProject, renameProject } from "../api/projects";
+import { clientv2 } from "../api/clientv2";
+import { getProject, removeProject } from "../api/projects";
 import ProjectHeader from "../components/ProjectHeader";
 import ProjectRemoveModal from "../components/ProjectRemoveModal";
 import { AuthProvider } from "../layouts/AuthContext";
@@ -57,7 +58,7 @@ function ProjectSettingPage() {
 
   const renameMutation = useMutation({
     mutationFn: async ({ old_name, new_name }) => {
-      return await renameProject(old_name, new_name);
+      return await clientv2.project.rename(old_name, new_name);
     },
     onSuccess: async () => {
       navigate("/projects/" + inputProjectName + "/setting");
