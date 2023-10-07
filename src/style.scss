@@ -43,7 +43,6 @@ $table-hover-bg: #e4edf7;
 }
 
 #projects-list-container {
-  width: 56rem;
   .project-link {
     max-width: 18rem;
   }
@@ -59,8 +58,9 @@ $table-hover-bg: #e4edf7;
 
 #project-overview-container,
 #project-create-container,
+#projects-list-container,
 #account-container {
-  width: 56rem;
+  width: 64rem;
 }
 
 #project-overview-container {
