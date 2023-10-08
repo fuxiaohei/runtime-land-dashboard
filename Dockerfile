@@ -12,7 +12,7 @@ ADD . .
 RUN npm install
 RUN npm run build-clerk
 
-FROM nginx:1.25
+FROM nginx:1.25.2
 EXPOSE 80
 WORKDIR /opt/bin/
 COPY --from=builder /usr/src/dashboard/dist /usr/share/nginx/html
