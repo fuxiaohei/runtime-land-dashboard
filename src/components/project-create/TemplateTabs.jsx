@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Tab, Tabs, Row, Col, Nav, Dropdown } from "react-bootstrap";
+import { Button, Col, Nav, Row, Tab, Tabs } from "react-bootstrap";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { githubGist } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import {
@@ -20,21 +20,7 @@ const generateName = () => {
 };
 
 function TemplateTabs({ data, onCreate }) {
-  const [currentTemplate, setCurrentTemplate] = useState(data["rust"][0]);
-
-  const renderTemplateDropdown = (templates) => {
-    return templates.map((template) => {
-      return (
-        <Dropdown.Item
-          onClick={() => setCurrentTemplate(template)}
-          active={template.name == currentTemplate.name}
-          key={template.template_name}
-        >
-          {template.template_name}
-        </Dropdown.Item>
-      );
-    });
-  };
+  const [currentTemplate, setCurrentTemplate] = useState(data["javascript"][0]);
 
   const createProject = () => {
     let req = {
@@ -48,7 +34,7 @@ function TemplateTabs({ data, onCreate }) {
   const createEmptyProject = () => {
     let req = {
       name: generateName(),
-      language: "rust",
+      language: "javascript",
     };
     onCreate(req);
   };
@@ -101,25 +87,6 @@ function TemplateTabs({ data, onCreate }) {
           setCurrentTemplate(data[key][0]);
         }}
       >
-        <Tab eventKey="rust" title="Rust">
-          <Tab.Container
-            className="templates-list"
-            defaultActiveKey={data["rust"][0].name}
-          >
-            <Row>
-              <Col sm={2}>
-                <Nav variant="pills" className="flex-column pb-3">
-                  {renderTemplateListNav(data["rust"])}
-                </Nav>
-              </Col>
-              <Col sm={10}>
-                <Tab.Content>
-                  {renderTemplateListPane(data["rust"])}
-                </Tab.Content>
-              </Col>
-            </Row>
-          </Tab.Container>
-        </Tab>
         <Tab eventKey="javascript" title="JavaScript">
           <Tab.Container
             className="templates-list"
@@ -134,6 +101,25 @@ function TemplateTabs({ data, onCreate }) {
               <Col sm={10}>
                 <Tab.Content>
                   {renderTemplateListPane(data["javascript"])}
+                </Tab.Content>
+              </Col>
+            </Row>
+          </Tab.Container>
+        </Tab>
+        <Tab eventKey="rust" title="Rust">
+          <Tab.Container
+            className="templates-list"
+            defaultActiveKey={data["rust"][0].name}
+          >
+            <Row>
+              <Col sm={2}>
+                <Nav variant="pills" className="flex-column pb-3">
+                  {renderTemplateListNav(data["rust"])}
+                </Nav>
+              </Col>
+              <Col sm={10}>
+                <Tab.Content>
+                  {renderTemplateListPane(data["rust"])}
                 </Tab.Content>
               </Col>
             </Row>
