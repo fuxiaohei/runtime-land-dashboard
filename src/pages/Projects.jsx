@@ -19,7 +19,7 @@ function ProjectsHeader({ count, onShow, onSearch }) {
         <span className="text-secondary fs-5 ms-3 fw-bold">({count})</span>
       </h3>
       <div>
-        <Form className="d-inline-block align-middle me-3">
+        <Form className="d-inline-block align-middle">
           <InputGroup>
             <Form.Control
               type="search"
